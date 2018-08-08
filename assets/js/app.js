@@ -17,6 +17,12 @@ function initMap() {
     var SE = 0;
     var SW = 0;
     var err = 0;
+
+    // arrays for each
+    var NEArr = [];
+    var NWArr = [];
+    var SEArr = [];
+    var SWArr = [];
     // start of marker generation
     for (var i = 0; i < 2000; i++){
         // getting each lat and long with the RNG helper functions
@@ -32,22 +38,46 @@ function initMap() {
             var NECount = document.getElementById('NECount');
             NECount.value++;
             NE++;
-            var marker = new google.maps.Marker({position: newMarkerObj, map: map, icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'});
+            var marker = new google.maps.Marker({
+                position: newMarkerObj,
+                map: map,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                draggable: false,
+            });
+            NEArr.push(marker);
         } else if ((randLat >= 0 && randLat <= 90) && (randLong >= 0 && randLong <= 180)) { // NW
             var NWCount = document.getElementById('NWCount');
             NWCount.value++;
             NW++;
-            var marker = new google.maps.Marker({position: newMarkerObj, map: map, icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'});
+            var marker = new google.maps.Marker({
+                position: newMarkerObj,
+                map: map,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                draggable: false,
+            });
+            NWArr.push(marker);
         } else if ((randLat <= 0 && randLat >= -90) && (randLong <= 0 && randLong >= -180)) { // SE
             var SECount = document.getElementById('SECount');
             SECount.value++;
             SE++;
-            var marker = new google.maps.Marker({position: newMarkerObj, map: map, icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'});
+            var marker = new google.maps.Marker({
+                position: newMarkerObj,
+                map: map, 
+                icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+                draggable: false,
+            });
+            SEArr.push(marker);
         } else if ((randLat <= 0 && randLat >= -90) && (randLong >= 0 && randLong <= 180)) { // SW
             var SWCount = document.getElementById('SWCount');
             SWCount.value++;
             SW++;
-            var marker = new google.maps.Marker({position: newMarkerObj, map: map, icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'});
+            var marker = new google.maps.Marker({
+                position: newMarkerObj,
+                map: map,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                draggable: false,
+            });
+            SWArr.push(marker);
         } else {
             err++;
         };
@@ -58,10 +88,75 @@ function initMap() {
     console.log(SE);
     console.log(SW);
     console.log(err);
+
     // now init the legend
     var legend = document.getElementById('legend');
 
     map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+    // NECheckbox click event
+    $('#NECheckBox').on('click', function(){
+        console.log('clicked');
+        if (document.getElementById('NECheckBox').checked){
+            console.log('setting to map');
+            for (var i = 0; i < NEArr.length; i++) {
+                NEArr[i].setMap(map);
+            }
+        } else {
+            console.log('setting to null');
+            for (var i = 0; i < NEArr.length; i++) {
+                NEArr[i].setMap(null);
+            }
+        }
+    });
+
+    // toggle for the NW pins
+    $('#NWCheckBox').on('click', function(){
+        console.log('clicked');
+        if (document.getElementById('NWCheckBox').checked){
+            console.log('setting to map');
+            for (var i = 0; i < NWArr.length; i++) {
+                NWArr[i].setMap(map);
+            }
+        } else {
+            console.log('setting to null');
+            for (var i = 0; i < NWArr.length; i++) {
+                NWArr[i].setMap(null);
+            }
+        }
+    });
+
+    // toggle for the SE pins
+    $('#SECheckBox').on('click', function(){
+        console.log('clicked');
+        if (document.getElementById('SECheckBox').checked){
+            console.log('setting to map');
+            for (var i = 0; i < SEArr.length; i++) {
+                SEArr[i].setMap(map);
+            }
+        } else {
+            console.log('setting to null');
+            for (var i = 0; i < SEArr.length; i++) {
+                SEArr[i].setMap(null);
+            }
+        }
+    });
+
+    // toggle for the SW pins
+    $('#SWCheckBox').on('click', function(){
+        console.log('clicked');
+        if (document.getElementById('SWCheckBox').checked){
+            console.log('setting to map');
+            for (var i = 0; i < SWArr.length; i++) {
+                SWArr[i].setMap(map);
+            }
+        } else {
+            console.log('setting to null');
+            for (var i = 0; i < SWArr.length; i++) {
+                SWArr[i].setMap(null);
+            }
+        }
+    });
 };
 
 // define RNG for latitude (this function should be defined here and then used later in the marker generation.)
@@ -86,17 +181,8 @@ function getRandLong(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-
-// legend Incrementer function ( make this a helper function )
-
-
-// toggle results function
-    // this is going to be an event listener for the checkboxes by each hemisphere in the legend.
-
 // refresh results function
-    // this will be an event listener on the refresh button in the legend
-    // it should either refresh the page or clear the whole page and generate new locations.
-
+    // reload page on click.
 
 
 ///// TO DO /////
