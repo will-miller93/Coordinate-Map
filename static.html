@@ -22,7 +22,57 @@
         <p>This app is designed to generate 2000 different coordinates and place pins for them. The pins will be colored based on the hemisphere its located in.</p>
     </div>
     <div id="googleMap"></div>
-
+    <div id="legend">
+        <h3> Legend </h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <p id="region">Region</p>
+                </div>
+                <div class="col-md-4">
+                    <p id="count">Count</p>
+                </div>
+            </div>
+            <ul>
+                <div class="row">
+                    <div class="col-md-8">
+                        <li><input type="checkbox" checked="checked">NorthEast</li>  
+                    </div>
+                    <div class="col-md-2">
+                        <input id='NECount' value=0>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-8">
+                        <li><input type="checkbox" checked="checked">NorthWest</li>
+                    </div>
+                    <div class="col-md-2">
+                        <input id='NWCount' value=0>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-8">
+                        <li><input type="checkbox" checked="checked">SouthEast</li>
+                    </div>
+                    <div class="col-md-2">
+                        <input id='SECount' value=0>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-8">
+                        <li><input type="checkbox" checked="checked">SouthEast</li>
+                    </div>
+                    <div class="col-md-2">
+                        <input id='SWCount' value=0>
+                    </div>
+                </div>
+            </ul>
+        </div>
+        <button>Refresh</button>
+    </div>
     <script>
 
     </script>
@@ -32,3 +82,10 @@
 </html>
 
 <!-- apikey= AIzaSyDvQ6gO8X6KqV_Ghn2lFXBg7MoYGdcTPWM -->
+
+<!-- <ul>
+        <li><input type="checkbox">NorthEast</li>
+        <li><input type="checkbox">NorthWest</li>
+        <li><input type="checkbox">SouthEast</li>
+        <li><input type="checkbox">SouthWest</li>
+    </ul> -->

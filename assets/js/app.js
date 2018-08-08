@@ -6,11 +6,11 @@ function initMap() {
         center: {lat: 33.7490, lng: -84.3880}
     });
     // test coordinates for making marker
-    var ATL = {lat: 33.7490, lng: -84.3880};
+    // var ATL = {lat: 33.7490, lng: -84.3880};
     // creating a new marker with the coordinates set above.
-    var marker = new google.maps.Marker({
-        position: ATL, map: map
-    });
+    // var marker = new google.maps.Marker({
+    //     position: ATL, map: map
+    // });
     // variables to increment with
     var NE = 0;
     var NW = 0;
@@ -29,16 +29,23 @@ function initMap() {
         // if you put the new google.maps.Marker function here then it will create all 2000 markers.
         // so now for the if statement to make the colored markers.
         if ((randLat >= 0 && randLat <= 90) && (randLong <= 0 && randLong >= -180)){ // NE
+            var NECount = document.getElementById('NECount');
+            NECount.value++;
             NE++;
             var marker = new google.maps.Marker({position: newMarkerObj, map: map, icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'});
-            
         } else if ((randLat >= 0 && randLat <= 90) && (randLong >= 0 && randLong <= 180)) { // NW
+            var NWCount = document.getElementById('NWCount');
+            NWCount.value++;
             NW++;
             var marker = new google.maps.Marker({position: newMarkerObj, map: map, icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'});
         } else if ((randLat <= 0 && randLat >= -90) && (randLong <= 0 && randLong >= -180)) { // SE
+            var SECount = document.getElementById('SECount');
+            SECount.value++;
             SE++;
             var marker = new google.maps.Marker({position: newMarkerObj, map: map, icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'});
         } else if ((randLat <= 0 && randLat >= -90) && (randLong >= 0 && randLong <= 180)) { // SW
+            var SWCount = document.getElementById('SWCount');
+            SWCount.value++;
             SW++;
             var marker = new google.maps.Marker({position: newMarkerObj, map: map, icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'});
         } else {
@@ -51,7 +58,11 @@ function initMap() {
     console.log(SE);
     console.log(SW);
     console.log(err);
-}
+    // now init the legend
+    var legend = document.getElementById('legend');
+
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+};
 
 // define RNG for latitude (this function should be defined here and then used later in the marker generation.)
 function getRandLat(min, max) {
@@ -77,8 +88,6 @@ function getRandLong(min, max) {
 
 
 // legend Incrementer function ( make this a helper function )
-    // the legend should auto increment based on what hemisphere the coordinates are in.
-    // there should be an if statement in here probably. (if in between certain coordinates for north/ south and east/west)
 
 
 // toggle results function
