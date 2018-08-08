@@ -3,19 +3,9 @@ function initMap() {
     // creating new instance of a google map
     var map = new google.maps.Map(document.getElementById('googleMap'), {
         zoom: 4,
-        center: {lat: 33.7490, lng: -84.3880}
+        center: {lat: 6.6666, lng: 1.6163}
     });
-    // test coordinates for making marker
-    // var ATL = {lat: 33.7490, lng: -84.3880};
-    // creating a new marker with the coordinates set above.
-    // var marker = new google.maps.Marker({
-    //     position: ATL, map: map
-    // });
-    // variables to increment with
-    var NE = 0;
-    var NW = 0;
-    var SE = 0;
-    var SW = 0;
+    // variable to use for checking for errors in marker generation
     var err = 0;
 
     // arrays for each
@@ -27,83 +17,95 @@ function initMap() {
     for (var i = 0; i < 2000; i++){
         // getting each lat and long with the RNG helper functions
         // set these to a variable to use in making the marker object.
-
         var randLat = getRandLat(-90, 90);
         var randLong = getRandLong(-180, 180);
         var newMarkerObj = {lat: randLat, lng: randLong};
 
-        // if you put the new google.maps.Marker function here then it will create all 2000 markers.
-        // so now for the if statement to make the colored markers.
+        // Series of if statements to differentiate the markers.
         if ((randLat >= 0 && randLat <= 90) && (randLong <= 0 && randLong >= -180)){ // NE
+            // declaring a variable with a value of the element with the id NECount (will be used for incrementing below)
             var NECount = document.getElementById('NECount');
+            // using the above varible to increment dynamically in the legend.
             NECount.value++;
-            NE++;
+            // creating a new marker.
             var marker = new google.maps.Marker({
                 position: newMarkerObj,
                 map: map,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png', // this is making the marker blue.
                 draggable: false,
             });
+            // pushing all of the markers with these coordinate ranges into an array for later use by the toggle functions.
             NEArr.push(marker);
         } else if ((randLat >= 0 && randLat <= 90) && (randLong >= 0 && randLong <= 180)) { // NW
+            // declaring a variable with a value of the element with the id NWCount (will be used for incrementing below) 
             var NWCount = document.getElementById('NWCount');
+            // using the above varible to increment dynamically in the legend.
             NWCount.value++;
-            NW++;
+            // creating a new marker.
             var marker = new google.maps.Marker({
                 position: newMarkerObj,
                 map: map,
                 icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
                 draggable: false,
             });
+            // pushing all of the markers with these coordinate ranges into an array for later use by the toggle functions.
             NWArr.push(marker);
         } else if ((randLat <= 0 && randLat >= -90) && (randLong <= 0 && randLong >= -180)) { // SE
+            // declaring a variable with a value of the element with the id SECount (will be used for incrementing below)
             var SECount = document.getElementById('SECount');
+            // using the above varible to increment dynamically in the legend.
             SECount.value++;
-            SE++;
+            // creating a new marker.
             var marker = new google.maps.Marker({
                 position: newMarkerObj,
                 map: map, 
                 icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
                 draggable: false,
             });
+            // pushing all of the markers with these coordinate ranges into an array for later use by the toggle functions.
             SEArr.push(marker);
         } else if ((randLat <= 0 && randLat >= -90) && (randLong >= 0 && randLong <= 180)) { // SW
+            // declaring a variable with a value of the element with the id SWCount (will be used for incrementing below)
             var SWCount = document.getElementById('SWCount');
+            // using the above varible to increment dynamically in the legend.
             SWCount.value++;
-            SW++;
+            // creating a new marker.
             var marker = new google.maps.Marker({
                 position: newMarkerObj,
                 map: map,
                 icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
                 draggable: false,
             });
+            // pushing all of the markers with these coordinate ranges into an array for later use by the toggle functions.
             SWArr.push(marker);
         } else {
+            // if any of the coordinates fall outside of any parameter it will add the error here
+            // to be console logged later.
             err++;
         };
     }
-    // console log the incrementing variables here to make sure there are 2000...
-    console.log(NE);
-    console.log(NW);
-    console.log(SE);
-    console.log(SW);
+    // console log the err variable to see if any markers have not been made
     console.log(err);
 
     // now init the legend
     var legend = document.getElementById('legend');
 
+    // this will float the legend in the bottom right of the map
     map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 
     // NECheckbox click event
     $('#NECheckBox').on('click', function(){
-        console.log('clicked');
+        // console.log('clicked');
+        // checking if the corresponding checkbox is checked or not.
         if (document.getElementById('NECheckBox').checked){
-            console.log('setting to map');
+            // console.log('setting to map');
+            // setting the map if the checkbox is now checked
             for (var i = 0; i < NEArr.length; i++) {
                 NEArr[i].setMap(map);
             }
         } else {
-            console.log('setting to null');
+            // console.log('setting to null');
+            // now setting the map to null if checked is now not checked.
             for (var i = 0; i < NEArr.length; i++) {
                 NEArr[i].setMap(null);
             }
@@ -112,14 +114,16 @@ function initMap() {
 
     // toggle for the NW pins
     $('#NWCheckBox').on('click', function(){
-        console.log('clicked');
+        // console.log('clicked');
         if (document.getElementById('NWCheckBox').checked){
-            console.log('setting to map');
+            // console.log('setting to map');
+            // setting the map if the checkbox is now checked
             for (var i = 0; i < NWArr.length; i++) {
                 NWArr[i].setMap(map);
             }
         } else {
-            console.log('setting to null');
+            // console.log('setting to null');
+            // now setting the map to null if checked is now not checked.
             for (var i = 0; i < NWArr.length; i++) {
                 NWArr[i].setMap(null);
             }
@@ -128,14 +132,16 @@ function initMap() {
 
     // toggle for the SE pins
     $('#SECheckBox').on('click', function(){
-        console.log('clicked');
+        // console.log('clicked');
         if (document.getElementById('SECheckBox').checked){
-            console.log('setting to map');
+            // console.log('setting to map');
+            // setting the map if the checkbox is now checked
             for (var i = 0; i < SEArr.length; i++) {
                 SEArr[i].setMap(map);
             }
         } else {
-            console.log('setting to null');
+            // console.log('setting to null');
+            // now setting the map to null if checked is now not checked.
             for (var i = 0; i < SEArr.length; i++) {
                 SEArr[i].setMap(null);
             }
@@ -144,20 +150,29 @@ function initMap() {
 
     // toggle for the SW pins
     $('#SWCheckBox').on('click', function(){
-        console.log('clicked');
+        // console.log('clicked');
         if (document.getElementById('SWCheckBox').checked){
-            console.log('setting to map');
+            // console.log('setting to map');
+            // setting the map if the checkbox is now checked
             for (var i = 0; i < SWArr.length; i++) {
                 SWArr[i].setMap(map);
             }
         } else {
-            console.log('setting to null');
+            // console.log('setting to null');
+            // now setting the map to null if checked is now not checked.
             for (var i = 0; i < SWArr.length; i++) {
                 SWArr[i].setMap(null);
             }
         }
     });
+
+    // function to reload page on reset button click
+    $('#refresh').on('click', function(){
+        location.reload();
+    })
 };
+
+/// HELPER FUNCTIONS ///
 
 // define RNG for latitude (this function should be defined here and then used later in the marker generation.)
 function getRandLat(min, max) {
@@ -181,22 +196,3 @@ function getRandLong(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-// refresh results function
-    // reload page on click.
-
-
-///// TO DO /////
-// 1. add the legend to the HTML
-// 2. generate one marker on the Map
-
-/// In Legend ///
-// 1. tags for each of the hemispheres.
-// 2. checkboxes next to all of them
-// 3. Colors for each the NE, NW, SE, SW
-// 4. incrementer for each region
-// 5. Button for refresh.
-
-/// IN JS ///
-// 1. marker generator function ((DONE))
-// 2. marker coloring (give each marker an id or class based on the region. then in CSS color by that ID) ((DONE))
-// 3. Legend incrementing.
