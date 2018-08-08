@@ -22,11 +22,11 @@ function initMap() {
         var newMarkerObj = {lat: randLat, lng: randLong};
 
         // Series of if statements to differentiate the markers.
-        if ((randLat >= 0 && randLat <= 90) && (randLong <= 0 && randLong >= -180)){ // NE
+        if ((randLat >= 0 && randLat <= 90) && (randLong <= 0 && randLong >= -180)){ // NW
             // declaring a variable with a value of the element with the id NECount (will be used for incrementing below)
-            var NECount = document.getElementById('NECount');
+            var NWCount = document.getElementById('NWCount');
             // using the above varible to increment dynamically in the legend.
-            NECount.value++;
+            NWCount.value++;
             // creating a new marker.
             var marker = new google.maps.Marker({
                 position: newMarkerObj,
@@ -35,12 +35,12 @@ function initMap() {
                 draggable: false,
             });
             // pushing all of the markers with these coordinate ranges into an array for later use by the toggle functions.
-            NEArr.push(marker);
+            NWArr.push(marker);
         } else if ((randLat >= 0 && randLat <= 90) && (randLong >= 0 && randLong <= 180)) { // NW
             // declaring a variable with a value of the element with the id NWCount (will be used for incrementing below) 
-            var NWCount = document.getElementById('NWCount');
+            var NECount = document.getElementById('NECount');
             // using the above varible to increment dynamically in the legend.
-            NWCount.value++;
+            NECount.value++;
             // creating a new marker.
             var marker = new google.maps.Marker({
                 position: newMarkerObj,
@@ -49,12 +49,12 @@ function initMap() {
                 draggable: false,
             });
             // pushing all of the markers with these coordinate ranges into an array for later use by the toggle functions.
-            NWArr.push(marker);
+            NEArr.push(marker);
         } else if ((randLat <= 0 && randLat >= -90) && (randLong <= 0 && randLong >= -180)) { // SE
             // declaring a variable with a value of the element with the id SECount (will be used for incrementing below)
-            var SECount = document.getElementById('SECount');
+            var SWCount = document.getElementById('SWCount');
             // using the above varible to increment dynamically in the legend.
-            SECount.value++;
+            SWCount.value++;
             // creating a new marker.
             var marker = new google.maps.Marker({
                 position: newMarkerObj,
@@ -63,12 +63,12 @@ function initMap() {
                 draggable: false,
             });
             // pushing all of the markers with these coordinate ranges into an array for later use by the toggle functions.
-            SEArr.push(marker);
+            SWArr.push(marker);
         } else if ((randLat <= 0 && randLat >= -90) && (randLong >= 0 && randLong <= 180)) { // SW
             // declaring a variable with a value of the element with the id SWCount (will be used for incrementing below)
-            var SWCount = document.getElementById('SWCount');
+            var SECount = document.getElementById('SECount');
             // using the above varible to increment dynamically in the legend.
-            SWCount.value++;
+            SECount.value++;
             // creating a new marker.
             var marker = new google.maps.Marker({
                 position: newMarkerObj,
@@ -77,7 +77,7 @@ function initMap() {
                 draggable: false,
             });
             // pushing all of the markers with these coordinate ranges into an array for later use by the toggle functions.
-            SWArr.push(marker);
+            SEArr.push(marker);
         } else {
             // if any of the coordinates fall outside of any parameter it will add the error here
             // to be console logged later.
